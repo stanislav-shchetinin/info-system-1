@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="lab1.main:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/lab1_main_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="lab1.main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: jakarta.persistence:jakarta.persistence-api:3.0.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="lab1.main/web/Web" />
+    </root>
+  </artifact>
+</component>
