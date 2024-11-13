@@ -1,11 +1,13 @@
 package org.example.entity;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -30,7 +32,8 @@ public class Person {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date birthday;
+    @JsonbDateFormat("yyyy-MM-dd")
+    private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
     private Country nationality;

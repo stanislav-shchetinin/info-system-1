@@ -25,7 +25,7 @@ public class MovieController {
             Movie createdMovie = movieService.createMovie(movie);
             return Response.status(Response.Status.CREATED).entity(createdMovie).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Ошибка при создании фильма").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("An error occurred during the creation of the film").build();
         }
     }
 
@@ -37,7 +37,7 @@ public class MovieController {
         if (movie.isPresent()) {
             return Response.ok(movie.get()).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Фильм не найден").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("The movie was not found").build();
         }
     }
 
@@ -56,10 +56,10 @@ public class MovieController {
             if (movie != null) {
                 return Response.ok(movie).build();
             } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Фильм не найден").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("The movie was not found").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Ошибка при обновлении фильма").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("An error occurred during the update of the film").build();
         }
     }
 
@@ -69,9 +69,9 @@ public class MovieController {
     public Response deleteMovie(@PathParam("id") int id) {
         boolean isDeleted = movieService.deleteMovie(id);
         if (isDeleted) {
-            return Response.noContent().build();
+            return Response.noContent().build();    
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Фильм не найден").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("The movie was not found").build();
         }
     }
 }

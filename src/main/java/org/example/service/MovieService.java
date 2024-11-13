@@ -1,20 +1,19 @@
 package org.example.service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.*;
 import org.example.entity.Movie;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class MovieService {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
+    @PersistenceContext(unitName = "default")
+    private EntityManager em;
 
     // Метод для создания нового фильма
     public Movie createMovie(Movie movie) {
-        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(movie);
@@ -27,7 +26,6 @@ public class MovieService {
 
     // Метод для получения фильма по ID
     public Optional<Movie> getMovieById(int id) {
-        EntityManager em = emf.createEntityManager();
         try {
             return Optional.ofNullable(em.find(Movie.class, id));
         } finally {
@@ -37,7 +35,6 @@ public class MovieService {
 
     // Метод для обновления существующего фильма
     public Movie updateMovie(int id, Movie updatedMovie) {
-        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Movie movie = em.find(Movie.class, id);
@@ -69,7 +66,6 @@ public class MovieService {
 
     // Метод для удаления фильма по ID
     public boolean deleteMovie(int id) {
-        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Movie movie = em.find(Movie.class, id);
@@ -86,7 +82,6 @@ public class MovieService {
 
     // Метод для получения всех фильмов
     public List<Movie> getAllMovies() {
-        EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
             return query.getResultList();
