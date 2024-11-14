@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ru.shchetinin</groupId>
+  <artifactId>lab1p</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>lab1p</name>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <junit.version>5.9.2</junit.version>
+    <liquibase-cdi.version>4.29.2</liquibase-cdi.version>
+    <postgresql.version>42.7.4</postgresql.version>
+    <lombok.version>1.18.24</lombok.version>
+    <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
+    <java.version>17</java.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
+    <lombok.mapstruct.binding>0.2.0</lombok.mapstruct.binding>
+    <modelmapper.version>3.2.1</modelmapper.version>
+    <slf4j-api.version>2.0.12</slf4j-api.version>
+    <logback-classic.version>1.5.6</logback-classic.version>
+    <jakarta.jakartaee-web-api.version>11.0.0-M3</jakarta.jakartaee-web-api.version>
+    <java-jwt.version>4.4.0</java-jwt.version>
+    <commons-codec.version>1.15</commons-codec.version>
+    <jackson-datatype-jsr310.version>2.18.0</jackson-datatype-jsr310.version>
+  </properties>
+
+  <dependencies>
+      <dependency>
+          <groupId>jakarta.platform</groupId>
+          <artifactId>jakarta.jakartaee-api</artifactId>
+          <version>9.1.0</version>
+          <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>${junit.version}</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>${lombok.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>${postgresql.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.liquibase</groupId>
+          <artifactId>liquibase-cdi</artifactId>
+          <version>${liquibase-cdi.version}</version>
+      </dependency>
+
+  </dependencies>
+
+  <build>
+      <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+          </plugin>
+      </plugins>
+  </build>
+</project>
