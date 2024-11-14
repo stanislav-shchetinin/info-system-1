@@ -7,10 +7,10 @@
   <persistence-unit name="default" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:jboss/datasources/postgres</jta-data-source>
-    <class>org.example.entity.Movie</class>
-    <class>org.example.entity.Coordinates</class>
-    <class>org.example.entity.Person</class>
-    <class>org.example.entity.Location</class>
+    <class>ru.shchetinin.lab1p.entity.Movie</class>
+    <class>ru.shchetinin.lab1p.entity.Coordinates</class>
+    <class>ru.shchetinin.lab1p.entity.Person</class>
+    <class>ru.shchetinin.lab1p.entity.Location</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
