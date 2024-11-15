@@ -1,5 +1,8 @@
 package ru.shchetinin.lab1p.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,12 +11,13 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
-@Embeddable
+@Entity
+@Table(name = "coordinates")
 @Getter
 @Setter
-public class Coordinates implements Serializable {
+public class Coordinates extends RootEntity {
     private long x;
 
-    @Column(nullable = false)
+    @NotNull
     private Float y;
 }

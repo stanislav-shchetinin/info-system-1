@@ -1,40 +1,57 @@
 package ru.shchetinin.lab1p.entity;
 
-import jakarta.json.bind.annotation.JsonbDateFormat;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "person")
 @Getter
 @Setter
-@NoArgsConstructor
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Person extends RootEntity {
 
-    @Column(nullable = false)
+    @NotEmpty
     private String name;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "eye_color")
     private Color eyeColor;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "hair_color")
     private Color hairColor;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(
+            name = "location_id",
+            referencedColumnName = "id",
+            nullable = false
+    )
     private Location location;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    @JsonbDateFormat("yyyy-MM-dd")
-    private LocalDate birthday;
+    @OneToMany(mappedBy = "director")
+    private List<Movie> directorMovies;
 
+    @OneToMany(mappedBy = "operator")
+    private List<Movie> operatorMovies;
+
+    @OneToMany(mappedBy = "screenwriter")
+    private List<Movie> screenwriterMovies;
+
+    @NotNull
+    private Date birthday;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Country nationality;
 }

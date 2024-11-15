@@ -2,6 +2,8 @@ package ru.shchetinin.lab1p.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import ru.shchetinin.lab1p.dto.request.MovieRequest;
 import ru.shchetinin.lab1p.entity.Movie;
 
 import java.util.List;
@@ -13,15 +15,10 @@ public class MovieService {
     private EntityManager em;
 
     // Метод для создания нового фильма
-    public Movie createMovie(Movie movie) {
-        try {
-            em.getTransaction().begin();
-            em.persist(movie);
-            em.getTransaction().commit();
-            return movie;
-        } finally {
-            em.close();
-        }
+    @Transactional
+    public Movie createMovie(MovieRequest movie) {
+        em.persist(movie);
+        return movie;
     }
 
     // Метод для получения фильма по ID

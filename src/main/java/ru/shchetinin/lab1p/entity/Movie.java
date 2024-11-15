@@ -1,60 +1,69 @@
 package ru.shchetinin.lab1p.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
+@Table(name = "movie")
 @Getter
 @Setter
-@NoArgsConstructor
-public class Movie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Movie extends RootEntity {
 
-    @Column(nullable = false, unique = true)
+    @NotEmpty
     private String name;
 
-    @Embedded
+    @ManyToOne
+    @JoinColumn(
+            name = "coordinates_id",
+            nullable = false,
+            referencedColumnName = "id"
+    )
     private Coordinates coordinates;
 
-    @Column(nullable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    @Min(value = 1)
+    @Column(name = "oscars_count")
+    private long oscarsCount;
 
-    private Long oscarsCount;
+    @Min(value = 0)
+    @Column(name = "budget")
+    private Double budget;
 
-    @Column(nullable = false)
-    private double budget;
-
-    @Column(nullable = false)
-    private double totalBoxOffice;
+    @Min(value = 0)
+    @Column(name = "total_box_office")
+    private float totalBoxOffice;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "mpaa_rating")
     private MpaaRating mpaaRating;
 
     @ManyToOne
+    @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Person director;
 
     @ManyToOne
+    @JoinColumn(name = "screenwriter_id", referencedColumnName = "id")
     private Person screenwriter;
 
     @ManyToOne
+    @JoinColumn(name = "operator_id", referencedColumnName = "id")
     private Person operator;
 
-    @Column(nullable = false)
+    @Min(value = 1)
     private int length;
 
-    private Long goldenPalmCount;
+    @Min(value = 1)
+    @Column(name = "golden_palm_count")
+    private Integer goldenPalmCount;
 
-    private Long usaBoxOffice;
-
-    @Column(length = 172)
+    @NotEmpty
+    @Column(name = "tag_line")
     private String tagline;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MovieGenre genre;
 }

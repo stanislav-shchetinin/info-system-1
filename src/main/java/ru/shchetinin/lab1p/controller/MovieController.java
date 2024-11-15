@@ -26,7 +26,15 @@ public class MovieController {
             Movie createdMovie = movieService.createMovie(movie);
             return Response.status(Response.Status.CREATED).entity(createdMovie).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("An error occurred during the creation of the film").build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(
+                            String.format(
+                                    "An error occurred during the creation of the film\n%s\n%s",
+                                    e.getMessage(),
+                                    e.getCause()
+                            )
+                    )
+                    .build();
         }
     }
 

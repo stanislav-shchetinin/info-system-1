@@ -1,5 +1,6 @@
 package ru.shchetinin.lab1p.entity;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,19 +8,20 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "location")
 @Getter
 @Setter
-public class Location implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Location extends RootEntity {
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "x")
     private Double x;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "y")
     private Long y;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "z")
     private Float z;
 }
