@@ -16,7 +16,7 @@ public class MovieService {
 
     // Метод для создания нового фильма
     @Transactional
-    public Movie createMovie(MovieRequest movie) {
+    public Movie createMovie(Movie movie) {
         em.persist(movie);
         return movie;
     }

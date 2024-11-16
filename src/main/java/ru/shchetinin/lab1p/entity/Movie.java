@@ -63,6 +63,9 @@ public class Movie extends RootEntity {
     @Column(name = "tag_line")
     private String tagline;
 
+    @Min(value = 1)
+    private Long usaBoxOffice;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private MovieGenre genre;
