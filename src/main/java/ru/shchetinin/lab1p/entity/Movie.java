@@ -16,7 +16,7 @@ public class Movie extends RootEntity {
     @NotEmpty
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "coordinates_id",
             nullable = false,
@@ -40,15 +40,15 @@ public class Movie extends RootEntity {
     @Column(name = "mpaa_rating")
     private MpaaRating mpaaRating;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Person director;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "screenwriter_id", referencedColumnName = "id")
     private Person screenwriter;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "operator_id", referencedColumnName = "id")
     private Person operator;
 
