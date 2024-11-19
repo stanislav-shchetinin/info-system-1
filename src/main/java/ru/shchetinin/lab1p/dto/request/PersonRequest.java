@@ -1,6 +1,7 @@
 package ru.shchetinin.lab1p.dto.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class PersonRequest {
     private Long location;
 
     @NotNull(message = "Birthday cannot be null")
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
     private Date birthday;
 
     private Country nationality;
