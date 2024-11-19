@@ -13,15 +13,15 @@ import java.io.Serializable;
 @Setter
 public class Location extends RootEntity {
 
-    @NotNull
+    @NotNull(message = "X cannot be null")
     @Column(name = "x")
     private Double x;
 
-    @NotNull
+    @NotNull(message = "Y cannot be null")
     @Column(name = "y")
     private Long y;
 
-    @NotNull
+    @NotNull(message = "Z cannot be null")
     @Column(name = "z")
     private Float z;
 }

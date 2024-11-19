@@ -18,6 +18,6 @@ import java.io.Serializable;
 public class Coordinates extends RootEntity {
     private long x;
 
-    @NotNull
+    @NotNull(message = "Y cannot be null")
     private Float y;
 }

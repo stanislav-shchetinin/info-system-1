@@ -18,15 +18,15 @@ import java.util.List;
 @Setter
 public class Person extends RootEntity {
 
-    @NotEmpty
+    @NotNull(message = "Name cannot be null")
+    @NotEmpty(message = "Name cannot be empty")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "eye_color")
     private Color eyeColor;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "hair_color")
     private Color hairColor;
@@ -34,8 +34,7 @@ public class Person extends RootEntity {
     @ManyToOne
     @JoinColumn(
             name = "location_id",
-            referencedColumnName = "id",
-            nullable = false
+            referencedColumnName = "id"
     )
     private Location location;
 
@@ -48,10 +47,11 @@ public class Person extends RootEntity {
     @OneToMany(mappedBy = "screenwriter")
     private List<Movie> screenwriterMovies;
 
-    @NotNull
+    @NotNull(message = "Birthday cannot be null")
+    @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "nationality")
     private Country nationality;
 }

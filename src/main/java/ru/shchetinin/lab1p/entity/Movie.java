@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movie")
@@ -13,9 +16,12 @@ import lombok.Setter;
 @Setter
 public class Movie extends RootEntity {
 
-    @NotEmpty
+    @NotNull(message = "Movie name cannot be null")
+    @NotEmpty(message = "Movie name cannot be empty")
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull(message = "Coordinates cannot be null")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "coordinates_id",
@@ -24,17 +30,21 @@ public class Movie extends RootEntity {
     )
     private Coordinates coordinates;
 
-    @Min(value = 1)
+    @NotNull(message = "Creation date cannot be null")
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
+
+    @Min(value = 1, message = "Oscar count must be greater than 0")
     @Column(name = "oscars_count")
-    private long oscarsCount;
+    private Long oscarsCount;
 
-    @Min(value = 0)
-    @Column(name = "budget")
-    private Double budget;
+    @Min(value = 0, message = "Budget must be greater than 0")
+    @Column(name = "budget", nullable = false)
+    private double budget;
 
-    @Min(value = 0)
-    @Column(name = "total_box_office")
-    private float totalBoxOffice;
+    @Min(value = 0, message = "Total box office must be greater than 0")
+    @Column(name = "total_box_office", nullable = false)
+    private double totalBoxOffice;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "mpaa_rating")
@@ -44,6 +54,7 @@ public class Movie extends RootEntity {
     @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Person director;
 
+    @NotNull(message = "Screenwriter cannot be null")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "screenwriter_id", referencedColumnName = "id")
     private Person screenwriter;
@@ -52,21 +63,23 @@ public class Movie extends RootEntity {
     @JoinColumn(name = "operator_id", referencedColumnName = "id")
     private Person operator;
 
-    @Min(value = 1)
+    @Min(value = 1, message = "Length must be greater than 0")
+    @Column(name = "length", nullable = false)
     private int length;
 
-    @Min(value = 1)
+    @Min(value = 1, message = "Golden Palm count must be greater than 0")
     @Column(name = "golden_palm_count")
-    private Integer goldenPalmCount;
+    private Long goldenPalmCount;
 
-    @NotEmpty
-    @Column(name = "tag_line")
-    private String tagline;
-
-    @Min(value = 1)
+    @Min(value = 1, message = "USA box office must be greater than 0")
+    @Column(name = "usa_box_office")
     private Long usaBoxOffice;
 
-    @NotNull
+    @Size(max = 172, message = "Tagline cannot exceed 172 characters")
+    @Column(name = "tag_line", length = 172)
+    private String tagline;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "genre")
     private MovieGenre genre;
 }
