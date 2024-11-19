@@ -2,6 +2,8 @@ package ru.shchetinin.lab1p.controller;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,22 +26,36 @@ public class CoordinatesController {
 
     @POST
     public Response createCoordinates(@Valid Coordinates coordinates) {
-        var createdCoordinates = coordinatesService.createMovie(coordinates);
+        var createdCoordinates = coordinatesService.createCoordinates(coordinates);
         return Response.status(Response.Status.CREATED).entity(createdCoordinates).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getCoordinatesById(@PathParam("id") Long id) {
-        var coordinates = coordinatesService.getMovieById(id);
+        var coordinates = coordinatesService.getCoordinateById(id);
         return Response.ok(coordinates).build();
     }
 
     @GET
     @Path("/all")
     public Response getAllCoordinates() {
-        List<Coordinates> coordinates = coordinatesService.getAllMovies();
+        List<Coordinates> coordinates = coordinatesService.getAllCoordinates();
         return Response.ok(coordinates).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateCoordinates(@PathParam("id") Long id, @Valid Coordinates updatedCoordinates) {
+        Coordinates coordinates = coordinatesService.updateCoordinates(id, updatedCoordinates);
+        return Response.ok(coordinates).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteCoordinates(@PathParam("id") Long id) {
+        coordinatesService.deleteCoordinates(id);
+        return Response.noContent().build();
     }
 
 }

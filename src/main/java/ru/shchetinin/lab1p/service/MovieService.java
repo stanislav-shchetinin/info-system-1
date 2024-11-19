@@ -19,6 +19,7 @@ public class MovieService {
     @Inject
     private MovieDao movieDao;
 
+    @Transactional
     public Movie createMovie(Movie movie) {
         movieDao.save(movie);
         return movie;
@@ -33,9 +34,10 @@ public class MovieService {
     }
 
     public List<Movie> getAllMovies() {
-        return movieDao.getAllMovies();
+        return movieDao.getAll();
     }
 
+    @Transactional
     public Movie updateMovie(Long id, Movie updatedMovie) {
         Optional<Movie> movieOptional = movieDao.findById(id);
         if (movieOptional.isEmpty()) {

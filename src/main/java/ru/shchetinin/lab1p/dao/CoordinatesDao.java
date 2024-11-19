@@ -12,33 +12,17 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class CoordinatesDao {
-    @PersistenceContext
-    private EntityManager em;
+public class CoordinatesDao extends BasedDao<Coordinates> {
 
-    @Transactional
-    public void save(Coordinates coordinates) {
-        em.persist(coordinates);
-    }
-
+    @Override
     public Optional<Coordinates> findById(Long id) {
         return Optional.ofNullable(em.find(Coordinates.class, id));
     }
 
-    public List<Coordinates> getAllMovies() {
+    @Override
+    public List<Coordinates> getAll() {
         TypedQuery<Coordinates> query = em.createQuery("SELECT c FROM Coordinates c", Coordinates.class);
         return query.getResultList();
-    }
-
-    public void update(Coordinates coordinates) {
-        em.merge(coordinates);
-    }
-
-    public boolean delete(Long id) {
-        var coordinates = findById(id);
-        if (coordinates.isEmpty()) return false;
-        em.remove(coordinates);
-        return true;
     }
 
 }

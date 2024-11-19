@@ -12,36 +12,17 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class MovieDao {
-    @PersistenceContext
-    private EntityManager em;
+public class MovieDao extends BasedDao<Movie> {
 
-    public void save(Movie movie) {
-        var transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(movie);
-        transaction.commit();
-    }
-
+    @Override
     public Optional<Movie> findById(Long id) {
         return Optional.ofNullable(em.find(Movie.class, id));
     }
 
-    public List<Movie> getAllMovies() {
+    @Override
+    public List<Movie> getAll() {
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
         return query.getResultList();
     }
-
-    public void update(Movie movie) {
-        em.merge(movie);
-    }
-
-    public boolean delete(Long id) {
-        var movie = findById(id);
-        if (movie.isEmpty()) return false;
-        em.remove(movie);
-        return true;
-    }
-
 
 }
