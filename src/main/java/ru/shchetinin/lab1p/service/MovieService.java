@@ -8,9 +8,13 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.core.Response;
 import ru.shchetinin.lab1p.dao.MovieDao;
 import ru.shchetinin.lab1p.dto.request.MovieRequest;
+import ru.shchetinin.lab1p.entity.Coordinates;
 import ru.shchetinin.lab1p.entity.Movie;
+import ru.shchetinin.lab1p.entity.Person;
+import org.modelmapper.ModelMapper;
 import ru.shchetinin.lab1p.excepion.EndpointException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +23,22 @@ public class MovieService {
     @Inject
     private MovieDao movieDao;
 
+    @Inject
+    private ModelMapper modelMapper;
+
+    @Inject
+    private PersonService personService;
+
+    @Inject
+    private CoordinatesService coordinatesService;
+
+
     @Transactional
-    public Movie createMovie(Movie movie) {
+    public Movie createMovie(MovieRequest movieRequest) {
+        Movie movie = modelMapper.map(movieRequest, Movie.class);
+        setDependencies(movieRequest, movie);
         movieDao.save(movie);
+
         return movie;
     }
 
@@ -38,26 +55,15 @@ public class MovieService {
     }
 
     @Transactional
-    public Movie updateMovie(Long id, Movie updatedMovie) {
+    public Movie updateMovie(Long id, MovieRequest movieRequest) {
         Optional<Movie> movieOptional = movieDao.findById(id);
         if (movieOptional.isEmpty()) {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Movie with id %d not found", id));
         }
         var movie = movieOptional.get();
-        movie.setName(updatedMovie.getName());
-        movie.setCoordinates(updatedMovie.getCoordinates());
-        movie.setOscarsCount(updatedMovie.getOscarsCount());
-        movie.setBudget(updatedMovie.getBudget());
-        movie.setTotalBoxOffice(updatedMovie.getTotalBoxOffice());
-        movie.setMpaaRating(updatedMovie.getMpaaRating());
-        movie.setDirector(updatedMovie.getDirector());
-        movie.setScreenwriter(updatedMovie.getScreenwriter());
-        movie.setOperator(updatedMovie.getOperator());
-        movie.setLength(updatedMovie.getLength());
-        movie.setGoldenPalmCount(updatedMovie.getGoldenPalmCount());
-        movie.setUsaBoxOffice(updatedMovie.getUsaBoxOffice());
-        movie.setTagline(updatedMovie.getTagline());
-        movie.setGenre(updatedMovie.getGenre());
+        modelMapper.map(movieRequest, movie);
+        setDependencies(movieRequest, movie);
+
         movieDao.update(movie);
 
         return movie;
@@ -69,5 +75,43 @@ public class MovieService {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Movie with id %d not found", id));
         }
     }
+
+    private void setDependencies(MovieRequest movieRequest, Movie movie) {
+
+        movie.setCreationDate(LocalDateTime.now());
+
+        Coordinates coordinates = modelMapper.map(
+                coordinatesService.getCoordinateById(movieRequest.getCoordinates()),
+                Coordinates.class
+        );
+
+        movie.setCoordinates(coordinates);
+
+        if (movieRequest.getDirector() != null) {
+            Person director = modelMapper.map(
+                    personService.getPersonById(movieRequest.getDirector()),
+                    Person.class
+            );
+
+            movie.setDirector(director);
+        }
+
+        Person screenwriter = modelMapper.map(
+                personService.getPersonById(movieRequest.getScreenwriter()),
+                Person.class
+        );
+
+        movie.setScreenwriter(screenwriter);
+
+        if (movieRequest.getOperator() != null) {
+            Person operator = modelMapper.map(
+                    personService.getPersonById(movieRequest.getOperator()),
+                    Person.class
+            );
+
+            movie.setOperator(operator);
+        }
+    }
+
 
 }

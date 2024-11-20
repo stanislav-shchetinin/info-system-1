@@ -4,7 +4,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.modelmapper.ModelMapper;
 import ru.shchetinin.lab1p.dao.PersonDao;
+import ru.shchetinin.lab1p.dto.request.PersonRequest;
+import ru.shchetinin.lab1p.entity.Location;
 import ru.shchetinin.lab1p.entity.Person;
 import ru.shchetinin.lab1p.excepion.EndpointException;
 
@@ -17,9 +20,21 @@ public class PersonService {
     @Inject
     private PersonDao personDao;
 
+    @Inject
+    private ModelMapper modelMapper;
+
+    @Inject
+    private LocationService locationService;
+
+
     @Transactional
-    public Person createPerson(Person person) {
+    public Person createPerson(PersonRequest personRequest) {
+        Person person = modelMapper.map(personRequest, Person.class);
+
+        setDependencies(personRequest, person);
+
         personDao.save(person);
+
         return person;
     }
 
@@ -36,19 +51,18 @@ public class PersonService {
     }
 
     @Transactional
-    public Person updatePerson(Long id, Person updatedPerson) {
+    public Person updatePerson(Long id, PersonRequest personRequest) {
         Optional<Person> personOptional = personDao.findById(id);
         if (personOptional.isEmpty()) {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Person with id %d not found", id));
         }
         var person = personOptional.get();
-        person.setName(updatedPerson.getName());
-        person.setEyeColor(updatedPerson.getEyeColor());
-        person.setHairColor(updatedPerson.getHairColor());
-        person.setLocation(updatedPerson.getLocation());
-        person.setBirthday(updatedPerson.getBirthday());
-        person.setNationality(updatedPerson.getNationality());
+        modelMapper.map(personRequest, person);
+
+        setDependencies(personRequest, person);
+
         personDao.update(person);
+
         return person;
     }
 
@@ -58,4 +72,15 @@ public class PersonService {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Person with id %d not found", id));
         }
     }
+
+    private void setDependencies(PersonRequest personRequest, Person person) {
+        if (personRequest.getLocation() != null) {
+            Location location = modelMapper.map(
+                    locationService.getLocationById(personRequest.getLocation()),
+                    Location.class
+            );
+            person.setLocation(location);
+        }
+    }
+
 }

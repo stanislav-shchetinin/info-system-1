@@ -1,5 +1,7 @@
 package ru.shchetinin.lab1p.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -39,16 +41,20 @@ public class Person extends RootEntity {
     private Location location;
 
     @OneToMany(mappedBy = "director")
+    @JsonIgnore
     private List<Movie> directorMovies;
 
     @OneToMany(mappedBy = "operator")
+    @JsonIgnore
     private List<Movie> operatorMovies;
 
     @OneToMany(mappedBy = "screenwriter")
+    @JsonIgnore
     private List<Movie> screenwriterMovies;
 
     @NotNull(message = "Birthday cannot be null")
     @Column(name = "birthday", nullable = false)
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date birthday;
 
     @Enumerated(EnumType.STRING)

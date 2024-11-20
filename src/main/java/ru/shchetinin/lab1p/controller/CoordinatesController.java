@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import ru.shchetinin.lab1p.dto.request.CoordinatesRequest;
 import ru.shchetinin.lab1p.entity.Coordinates;
 import ru.shchetinin.lab1p.entity.Movie;
 import ru.shchetinin.lab1p.service.CoordinatesService;
@@ -25,7 +26,7 @@ public class CoordinatesController {
     private CoordinatesService coordinatesService;
 
     @POST
-    public Response createCoordinates(@Valid Coordinates coordinates) {
+    public Response createCoordinates(@Valid CoordinatesRequest coordinates) {
         var createdCoordinates = coordinatesService.createCoordinates(coordinates);
         return Response.status(Response.Status.CREATED).entity(createdCoordinates).build();
     }
@@ -46,7 +47,7 @@ public class CoordinatesController {
 
     @PUT
     @Path("/{id}")
-    public Response updateCoordinates(@PathParam("id") Long id, @Valid Coordinates updatedCoordinates) {
+    public Response updateCoordinates(@PathParam("id") Long id, @Valid CoordinatesRequest updatedCoordinates) {
         Coordinates coordinates = coordinatesService.updateCoordinates(id, updatedCoordinates);
         return Response.ok(coordinates).build();
     }

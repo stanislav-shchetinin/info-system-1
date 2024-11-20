@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import ru.shchetinin.lab1p.dto.request.LocationRequest;
 import ru.shchetinin.lab1p.entity.Location;
 import ru.shchetinin.lab1p.service.LocationService;
 
@@ -21,7 +22,7 @@ public class LocationController {
     private LocationService locationService;
 
     @POST
-    public Response createLocation(@Valid Location location) {
+    public Response createLocation(@Valid LocationRequest location) {
         var createdLocation = locationService.createLocation(location);
         return Response.status(Response.Status.CREATED).entity(createdLocation).build();
     }
@@ -42,7 +43,7 @@ public class LocationController {
 
     @PUT
     @Path("/{id}")
-    public Response updateLocation(@PathParam("id") Long id, @Valid Location updatedLocation) {
+    public Response updateLocation(@PathParam("id") Long id, @Valid LocationRequest updatedLocation) {
         Location location = locationService.updateLocation(id, updatedLocation);
         return Response.ok(location).build();
     }

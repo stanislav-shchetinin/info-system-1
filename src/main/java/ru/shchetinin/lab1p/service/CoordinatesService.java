@@ -8,7 +8,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.modelmapper.ModelMapper;
 import ru.shchetinin.lab1p.dao.CoordinatesDao;
+import ru.shchetinin.lab1p.dto.request.CoordinatesRequest;
 import ru.shchetinin.lab1p.entity.Coordinates;
 import ru.shchetinin.lab1p.entity.Movie;
 import ru.shchetinin.lab1p.excepion.EndpointException;
@@ -21,8 +23,12 @@ public class CoordinatesService {
     @Inject
     private CoordinatesDao coordinatesDao;
 
+    @Inject
+    private ModelMapper modelMapper;
+
     @Transactional
-    public Coordinates createCoordinates(Coordinates coordinates) {
+    public Coordinates createCoordinates(CoordinatesRequest coordinatesRequest) {
+        Coordinates coordinates = modelMapper.map(coordinatesRequest, Coordinates.class);
         coordinatesDao.save(coordinates);
         return coordinates;
     }
@@ -40,14 +46,13 @@ public class CoordinatesService {
     }
 
     @Transactional
-    public Coordinates updateCoordinates(Long id, Coordinates updatedCoordinates) {
+    public Coordinates updateCoordinates(Long id, CoordinatesRequest coordinatesRequest) {
         Optional<Coordinates> coordinatesOptional = coordinatesDao.findById(id);
         if (coordinatesOptional.isEmpty()) {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Coordinates with id %d not found", id));
         }
         var coordinates = coordinatesOptional.get();
-        coordinates.setX(updatedCoordinates.getX());
-        coordinates.setY(updatedCoordinates.getY());
+        modelMapper.map(coordinatesRequest, coordinates);
         coordinatesDao.update(coordinates);
 
         return coordinates;
@@ -59,6 +64,5 @@ public class CoordinatesService {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Coordinates with id %d not found", id));
         }
     }
-
 
 }

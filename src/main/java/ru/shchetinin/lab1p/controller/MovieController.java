@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import ru.shchetinin.lab1p.dto.request.MovieRequest;
 import ru.shchetinin.lab1p.entity.Movie;
 import ru.shchetinin.lab1p.service.MovieService;
 
@@ -21,7 +22,7 @@ public class MovieController {
     private MovieService movieService;
 
     @POST
-    public Response createMovie(@Valid Movie movie) {
+    public Response createMovie(@Valid MovieRequest movie) {
         Movie createdMovie = movieService.createMovie(movie);
         return Response.status(Response.Status.CREATED).entity(createdMovie).build();
     }
@@ -42,7 +43,7 @@ public class MovieController {
 
     @PUT
     @Path("/{id}")
-    public Response updateMovie(@PathParam("id") Long id, @Valid Movie updatedMovie) {
+    public Response updateMovie(@PathParam("id") Long id, @Valid MovieRequest updatedMovie) {
         Movie movie = movieService.updateMovie(id, updatedMovie);
         return Response.ok(movie).build();
     }

@@ -1,5 +1,9 @@
 package ru.shchetinin.lab1p.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,9 +34,10 @@ public class Movie extends RootEntity {
     )
     private Coordinates coordinates;
 
-    @NotNull(message = "Creation date cannot be null")
-    @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+//    @Column(name = "creation_date", nullable = false, updatable = false)
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//    private LocalDateTime creationDate;
 
     @Min(value = 1, message = "Oscar count must be greater than 0")
     @Column(name = "oscars_count")

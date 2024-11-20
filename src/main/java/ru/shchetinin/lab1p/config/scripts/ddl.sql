@@ -1,12 +1,12 @@
 -- Создание таблицы для Coordinates
-CREATE TABLE coordinates (
+CREATE TABLE IF NOT EXISTS coordinates (
                              id SERIAL PRIMARY KEY,  -- Автоматическое увеличение и уникальность
                              x BIGINT NOT NULL,
                              y FLOAT NOT NULL
 );
 
 -- Создание таблицы для Location
-CREATE TABLE location (
+CREATE TABLE IF NOT EXISTS location (
                           id SERIAL PRIMARY KEY,  -- Автоматическое увеличение и уникальность
                           x DOUBLE PRECISION NOT NULL,
                           y BIGINT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE location (
 );
 
 -- Создание таблицы для Person
-CREATE TABLE person (
+CREATE TABLE IF NOT EXISTS person (
                         id SERIAL PRIMARY KEY,  -- Автоматическое увеличение и уникальность
                         name VARCHAR(255) NOT NULL,  -- Поле не может быть null
                         eye_color VARCHAR(50),
@@ -26,7 +26,7 @@ CREATE TABLE person (
 );
 
 -- Создание таблицы для Movie
-CREATE TABLE movie (
+CREATE TABLE IF NOT EXISTS movie (
                        id SERIAL PRIMARY KEY,  -- Автоматическое увеличение и уникальность
                        name VARCHAR(255) NOT NULL,  -- Поле не может быть null
                        coordinates_id INT,  -- Внешний ключ на Coordinates
@@ -41,7 +41,7 @@ CREATE TABLE movie (
                        length INT CHECK (length > 0),
                        golden_palm_count BIGINT CHECK (golden_palm_count > 0),
                        usa_box_office BIGINT CHECK (usa_box_office > 0),
-                       tagline VARCHAR(172),
+                       tag_line VARCHAR(172),
                        genre VARCHAR(50),
                        FOREIGN KEY (coordinates_id) REFERENCES coordinates(id),
                        FOREIGN KEY (director_id) REFERENCES person(id),
@@ -49,33 +49,4 @@ CREATE TABLE movie (
                        FOREIGN KEY (operator_id) REFERENCES person(id)
 );
 
-
-DO $$
-    BEGIN
-        -- Создание типа "color"
-        IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'color') THEN
-            CREATE TYPE color AS ENUM ('GREEN', 'BLUE', 'YELLOW', 'ORANGE');
-        END IF;
-
-        -- Создание типа "country"
-        IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'country') THEN
-            CREATE TYPE country AS ENUM ('UNITED_KINGDOM', 'NORTH_KOREA', 'JAPAN');
-        END IF;
-
-        -- Создание типа "movie_genre"
-        IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'movie_genre') THEN
-            CREATE TYPE movie_genre AS ENUM ('HORROR', 'FANTASY', 'SCIENCE_FICTION');
-        END IF;
-
-        -- Создание типа "mpaa_rating"
-        IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'mpaa_rating') THEN
-            CREATE TYPE mpaa_rating AS ENUM ('PG', 'PG_13', 'R', 'NC_17');
-        END IF;
-    END $$;
-
--- Изменение столбцов таблиц
-ALTER TABLE person ALTER COLUMN eye_color TYPE color USING eye_color::color;
-ALTER TABLE person ALTER COLUMN nationality TYPE country USING nationality::country;
-ALTER TABLE movie ALTER COLUMN genre TYPE movie_genre USING genre::movie_genre;
-ALTER TABLE movie ALTER COLUMN mpaa_rating TYPE mpaa_rating USING mpaa_rating::mpaa_rating;
 

@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import ru.shchetinin.lab1p.dto.request.PersonRequest;
 import ru.shchetinin.lab1p.entity.Person;
 import ru.shchetinin.lab1p.service.PersonService;
 
@@ -21,7 +22,7 @@ public class PersonController {
     private PersonService personService;
 
     @POST
-    public Response createPerson(@Valid Person person) {
+    public Response createPerson(@Valid PersonRequest person) {
         Person createdPerson = personService.createPerson(person);
         return Response.status(Response.Status.CREATED).entity(createdPerson).build();
     }
@@ -42,7 +43,7 @@ public class PersonController {
 
     @PUT
     @Path("/{id}")
-    public Response updatePerson(@PathParam("id") Long id, @Valid Person updatedPerson) {
+    public Response updatePerson(@PathParam("id") Long id, @Valid PersonRequest updatedPerson) {
         Person person = personService.updatePerson(id, updatedPerson);
         return Response.ok(person).build();
     }

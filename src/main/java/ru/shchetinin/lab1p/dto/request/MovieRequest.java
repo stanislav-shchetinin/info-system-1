@@ -1,5 +1,9 @@
 package ru.shchetinin.lab1p.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +14,8 @@ import lombok.NoArgsConstructor;
 import ru.shchetinin.lab1p.entity.MovieGenre;
 import ru.shchetinin.lab1p.entity.MpaaRating;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +24,11 @@ public class MovieRequest {
     @NotNull(message = "Movie name cannot be null")
     @NotEmpty(message = "Movie name cannot be empty")
     private String name;
+
+//    @NotNull(message = "Creation date cannot be null")
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//    private LocalDateTime creationDate;
 
     @NotNull(message = "Coordinates cannot be null")
     private Long coordinates;
