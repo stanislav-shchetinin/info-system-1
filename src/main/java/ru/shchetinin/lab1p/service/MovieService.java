@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import ru.shchetinin.lab1p.excepion.EndpointException;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class MovieService {
     public Movie createMovie(MovieRequest movieRequest) {
         Movie movie = modelMapper.map(movieRequest, Movie.class);
         setDependencies(movieRequest, movie);
+        movie.setCreationDate(new Date());
         movieDao.save(movie);
 
         return movie;
@@ -77,8 +79,6 @@ public class MovieService {
     }
 
     private void setDependencies(MovieRequest movieRequest, Movie movie) {
-
-        movie.setCreationDate(LocalDateTime.now());
 
         Coordinates coordinates = modelMapper.map(
                 coordinatesService.getCoordinateById(movieRequest.getCoordinates()),

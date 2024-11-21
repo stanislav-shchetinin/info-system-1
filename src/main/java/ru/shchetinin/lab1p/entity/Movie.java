@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "movie")
@@ -34,10 +35,10 @@ public class Movie extends RootEntity {
     )
     private Coordinates coordinates;
 
-//    @Column(name = "creation_date", nullable = false, updatable = false)
-//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-//    private LocalDateTime creationDate;
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    @JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date creationDate;
 
     @Min(value = 1, message = "Oscar count must be greater than 0")
     @Column(name = "oscars_count")
