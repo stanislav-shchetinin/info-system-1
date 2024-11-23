@@ -41,8 +41,8 @@ public class CoordinatesService {
         return coordinates.get();
     }
 
-    public List<Coordinates> getAllCoordinates() {
-        return coordinatesDao.getAll();
+    public List<Coordinates> getAllCoordinates(int page, int size) {
+        return coordinatesDao.getAll(page, size);
     }
 
     @Transactional

@@ -40,8 +40,9 @@ public class CoordinatesController {
 
     @GET
     @Path("/all")
-    public Response getAllCoordinates() {
-        List<Coordinates> coordinates = coordinatesService.getAllCoordinates();
+    public Response getAllCoordinates(@QueryParam("page") int page,
+                                      @QueryParam("size") int size) {
+        List<Coordinates> coordinates = coordinatesService.getAllCoordinates(page, size);
         return Response.ok(coordinates).build();
     }
 

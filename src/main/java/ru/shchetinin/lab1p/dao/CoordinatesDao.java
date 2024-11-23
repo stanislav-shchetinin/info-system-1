@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import ru.shchetinin.lab1p.entity.Coordinates;
+import ru.shchetinin.lab1p.entity.Location;
 import ru.shchetinin.lab1p.entity.Movie;
 
 import java.util.List;
@@ -20,9 +21,12 @@ public class CoordinatesDao extends BasedDao<Coordinates> {
     }
 
     @Override
-    public List<Coordinates> getAll() {
-        TypedQuery<Coordinates> query = em.createQuery("SELECT c FROM Coordinates c", Coordinates.class);
-        return query.getResultList();
+    public List<Coordinates> getAll(int page, int size) {
+        return em.createQuery("FROM Coordinates", Coordinates.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+
     }
 
 }

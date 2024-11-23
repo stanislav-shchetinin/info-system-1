@@ -46,8 +46,8 @@ public class PersonService {
         return person.get();
     }
 
-    public List<Person> getAllPersons() {
-        return personDao.getAll();
+    public List<Person> getAllPersons(int page, int size) {
+        return personDao.getAll(page, size);
     }
 
     @Transactional

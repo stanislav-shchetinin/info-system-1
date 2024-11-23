@@ -37,8 +37,8 @@ public class LocationService {
         return locationOptional.get();
     }
 
-    public List<Location> getAllLocations() {
-        return locationDao.getAll();
+    public List<Location> getAllLocations(int page, int size) {
+        return locationDao.getAll(page, size);
     }
 
     @Transactional

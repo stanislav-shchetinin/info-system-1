@@ -36,8 +36,9 @@ public class PersonController {
 
     @GET
     @Path("/all")
-    public Response getAllPersons() {
-        List<Person> persons = personService.getAllPersons();
+    public Response getAllPersons(@QueryParam("page") int page,
+                                  @QueryParam("size") int size) {
+        List<Person> persons = personService.getAllPersons(page, size);
         return Response.ok(persons).build();
     }
 

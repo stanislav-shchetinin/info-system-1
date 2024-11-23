@@ -52,8 +52,8 @@ public class MovieService {
         return movie.get();
     }
 
-    public List<Movie> getAllMovies() {
-        return movieDao.getAll();
+    public List<Movie> getAllMovies(int page, int size) {
+        return movieDao.getAll(page, size);
     }
 
     @Transactional

@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import ru.shchetinin.lab1p.entity.Movie;
+import ru.shchetinin.lab1p.entity.Person;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +21,12 @@ public class MovieDao extends BasedDao<Movie> {
     }
 
     @Override
-    public List<Movie> getAll() {
-        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
-        return query.getResultList();
+    public List<Movie> getAll(int page, int size) {
+        return em.createQuery("SELECT m FROM Movie m", Movie.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+
     }
 
 }

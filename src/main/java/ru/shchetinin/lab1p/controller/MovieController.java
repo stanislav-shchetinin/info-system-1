@@ -29,15 +29,16 @@ public class MovieController {
 
     @GET
     @Path("/{id}")
-    public Response getMovieById(@PathParam("id") Long id) {
+        public Response getMovieById(@PathParam("id") Long id) {
         Movie movie = movieService.getMovieById(id);
         return Response.ok(movie).build();
     }
 
     @GET
     @Path("/all")
-    public Response getAllMovies() {
-        List<Movie> movies = movieService.getAllMovies();
+    public Response getAllMovies(@QueryParam("page") int page,
+                                 @QueryParam("size") int size) {
+        List<Movie> movies = movieService.getAllMovies(page, size);
         return Response.ok(movies).build();
     }
 

@@ -36,8 +36,9 @@ public class LocationController {
 
     @GET
     @Path("/all")
-    public Response getAllLocations() {
-        List<Location> locations = locationService.getAllLocations();
+    public Response getAllLocations(@QueryParam("page") int page,
+                                    @QueryParam("size") int size) {
+        List<Location> locations = locationService.getAllLocations(page, size);
         return Response.ok(locations).build();
     }
 
