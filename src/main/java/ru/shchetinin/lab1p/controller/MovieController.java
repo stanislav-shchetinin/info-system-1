@@ -36,9 +36,14 @@ public class MovieController {
 
     @GET
     @Path("/all")
-    public Response getAllMovies(@QueryParam("page") int page,
-                                 @QueryParam("size") int size) {
-        List<Movie> movies = movieService.getAllMovies(page, size);
+    public Response getAllMovies(@QueryParam("page") @DefaultValue("1") int page,
+                                 @QueryParam("size") @DefaultValue("10") int size,
+                                 @QueryParam("filterColumn") String filterColumn,
+                                 @QueryParam("filterValue") String filterValue,
+                                 @QueryParam("sortColumn") String sortColumn,
+                                 @QueryParam("asc") @DefaultValue("true") boolean asc) {
+        List<Movie> movies = movieService.getAllMovies(page, size, filterColumn,
+                                                       filterValue, sortColumn, asc);
         return Response.ok(movies).build();
     }
 

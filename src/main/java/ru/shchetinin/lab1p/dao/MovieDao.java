@@ -29,4 +29,29 @@ public class MovieDao extends BasedDao<Movie> {
 
     }
 
+    public List<Movie> getAll(int page, int size, String filterColumn, String filterValue, String sortColumn, boolean asc) {
+        StringBuilder queryBuilder = new StringBuilder("SELECT m FROM Movie m");
+
+        boolean isValidFilter = filterColumn != null && !filterColumn.isEmpty() && filterValue != null && !filterValue.isEmpty();
+        if (isValidFilter) {
+            queryBuilder.append(" WHERE LOWER(CAST(m.").append(filterColumn).append(" AS string)) LIKE LOWER(:filterValue)");
+        }
+
+        if (sortColumn != null && !sortColumn.isEmpty()) {
+            queryBuilder.append(" ORDER BY m.").append(sortColumn);
+            queryBuilder.append(asc ? " ASC" : " DESC");
+        }
+
+        TypedQuery<Movie> query = em.createQuery(queryBuilder.toString(), Movie.class);
+
+        if (isValidFilter) {
+            query.setParameter("filterValue", "%" + filterValue + "%");
+        }
+
+        query.setFirstResult((page - 1) * size);
+        query.setMaxResults(size);
+
+        return query.getResultList();
+    }
+
 }

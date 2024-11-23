@@ -52,8 +52,9 @@ public class MovieService {
         return movie.get();
     }
 
-    public List<Movie> getAllMovies(int page, int size) {
-        return movieDao.getAll(page, size);
+    public List<Movie> getAllMovies(int page, int size, String filterColumn,
+                                    String filterValue, String sortColumn, boolean asc) {
+        return movieDao.getAll(page, size, filterColumn, filterValue, sortColumn, asc);
     }
 
     @Transactional
