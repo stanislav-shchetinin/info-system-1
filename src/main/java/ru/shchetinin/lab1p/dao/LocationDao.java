@@ -18,7 +18,7 @@ public class LocationDao extends BasedDao<Location>{
 
     @Override
     public List<Location> getAll(int page, int size) {
-        return em.createQuery("FROM Location", Location.class)
+        return em.createQuery("SELECT l FROM Location l", Location.class)
                 .setFirstResult((page - 1) * size)
                 .setMaxResults(size)
                 .getResultList();

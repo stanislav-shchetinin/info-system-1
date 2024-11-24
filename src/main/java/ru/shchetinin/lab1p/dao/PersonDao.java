@@ -18,7 +18,7 @@ public class PersonDao extends BasedDao<Person>{
 
     @Override
     public List<Person> getAll(int page, int size) {
-        return em.createQuery("FROM Person", Person.class)
+        return em.createQuery("SELECT p FROM Person p", Person.class)
                 .setFirstResult((page - 1) * size)
                 .setMaxResults(size)
                 .getResultList();

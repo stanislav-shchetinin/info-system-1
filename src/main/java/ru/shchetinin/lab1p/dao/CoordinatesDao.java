@@ -22,7 +22,7 @@ public class CoordinatesDao extends BasedDao<Coordinates> {
 
     @Override
     public List<Coordinates> getAll(int page, int size) {
-        return em.createQuery("FROM Coordinates", Coordinates.class)
+        return em.createQuery("SELECT c FROM Coordinates c", Coordinates.class)
                 .setFirstResult((page - 1) * size)
                 .setMaxResults(size)
                 .getResultList();

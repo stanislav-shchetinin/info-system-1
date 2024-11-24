@@ -11,6 +11,7 @@
     <class>ru.shchetinin.lab1p.entity.Coordinates</class>
     <class>ru.shchetinin.lab1p.entity.Person</class>
     <class>ru.shchetinin.lab1p.entity.Location</class>
+    <class>ru.shchetinin.lab1p.entity.User</class>
 
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
