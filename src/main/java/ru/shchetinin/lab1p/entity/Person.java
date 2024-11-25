@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "person")
 @Getter
 @Setter
-public class Person extends RootEntity {
+public class Person extends SubjectAreaEntity {
 
     @NotNull(message = "Name cannot be null")
     @NotEmpty(message = "Name cannot be empty")

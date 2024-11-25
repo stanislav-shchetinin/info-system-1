@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name = "movie")
 @Getter
 @Setter
-public class Movie extends RootEntity {
+public class Movie extends SubjectAreaEntity {
 
     @NotNull(message = "Movie name cannot be null")
     @NotEmpty(message = "Movie name cannot be empty")

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Table(name = "location")
 @Getter
 @Setter
-public class Location extends RootEntity {
+public class Location extends SubjectAreaEntity {
 
     @NotNull(message = "X cannot be null")
     @Column(name = "x")
