@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import ru.shchetinin.lab1p.dto.request.CoordinatesRequest;
 import ru.shchetinin.lab1p.entity.Coordinates;
 import ru.shchetinin.lab1p.entity.Movie;
+import ru.shchetinin.lab1p.security.JWT;
 import ru.shchetinin.lab1p.service.CoordinatesService;
 import ru.shchetinin.lab1p.service.MovieService;
 
@@ -26,6 +27,7 @@ public class CoordinatesController {
     private CoordinatesService coordinatesService;
 
     @POST
+    @JWT
     public Response createCoordinates(@Valid CoordinatesRequest coordinates) {
         var createdCoordinates = coordinatesService.createCoordinates(coordinates);
         return Response.status(Response.Status.CREATED).entity(createdCoordinates).build();
@@ -33,6 +35,7 @@ public class CoordinatesController {
 
     @GET
     @Path("/{id}")
+    @JWT
     public Response getCoordinatesById(@PathParam("id") Long id) {
         var coordinates = coordinatesService.getCoordinateById(id);
         return Response.ok(coordinates).build();
@@ -40,6 +43,7 @@ public class CoordinatesController {
 
     @GET
     @Path("/all")
+    @JWT
     public Response getAllCoordinates(@QueryParam("page") int page,
                                       @QueryParam("size") int size) {
         List<Coordinates> coordinates = coordinatesService.getAllCoordinates(page, size);
@@ -48,6 +52,7 @@ public class CoordinatesController {
 
     @PUT
     @Path("/{id}")
+    @JWT
     public Response updateCoordinates(@PathParam("id") Long id, @Valid CoordinatesRequest updatedCoordinates) {
         Coordinates coordinates = coordinatesService.updateCoordinates(id, updatedCoordinates);
         return Response.ok(coordinates).build();
@@ -55,6 +60,7 @@ public class CoordinatesController {
 
     @DELETE
     @Path("/{id}")
+    @JWT
     public Response deleteCoordinates(@PathParam("id") Long id) {
         coordinatesService.deleteCoordinates(id);
         return Response.noContent().build();

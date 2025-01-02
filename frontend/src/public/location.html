@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/table.css"/>
+  <title>Location Management</title>
+</head>
+<body>
+<h3>Location Management</h3>
+
+<div id="user-principals">
+
+</div>
+
+<table id="location-table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>X</th>
+    <th>Y</th>
+    <th>Z</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<h4>Add/Alter Location</h4>
+<form id="add-location-form">
+  <label for="x">X:</label>
+  <input type="number" id="x" name="x" required>
+
+  <label for="y">Y:</label>
+  <input type="number" id="y" name="y" required>
+
+  <label for="z">Z:</label>
+  <input type="number" id="z" name="z" required>
+
+  <button type="submit">Submit</button>
+</form>
+
+<button type="submit" id="home-button">Home</button>
+
+<script type="module" src="../js/location.js"></script>
+</body>
+</html>

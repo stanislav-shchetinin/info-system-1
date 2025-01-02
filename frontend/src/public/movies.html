@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/table.css">
+</head>
+<body>
+
+<h2>Movies Management</h2>
+
+<div id="user-principals">
+
+</div>
+
+<form id="navigation">
+    <label for="page">Page:</label>
+    <select id="page" name="page" required></select>
+    <button type="submit">GO!</button>
+</form>
+
+<button id="submitApplication" type="submit">Become admin</button>
+
+<!-- Form for Creating or Updating a Movie -->
+<div class="form-container">
+    <h3 id="form-title">Create New Movie</h3>
+    <form id="movie-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="coordinates">Coordinates:</label>
+        <select id="coordinates" name="coordinates" required></select>
+
+        <label for="oscarsCount">Oscars Count:</label>
+        <input type="number" id="oscarsCount" name="oscarsCount" required>
+
+        <label for="budget">Budget:</label>
+        <input type="number" id="budget" name="budget" min="0">
+
+        <label for="totalBoxOffice">Total Box Office:</label>
+        <input type="number" id="totalBoxOffice" name="totalBoxOffice" min="0">
+
+        <label for="mpaaRating">Mpaa Rating:</label>
+        <select id="mpaaRating" name="mpaaRating"></select>
+
+        <label for="director">Director:</label>
+        <select id="director" name="director"></select>
+
+        <label for="screenwriter">Screenwriter:</label>
+        <select id="screenwriter" name="screenwriter"></select>
+
+        <label for="operator">Operator:</label>
+        <select id="operator" name="operator"></select>
+
+        <label for="length">Length:</label>
+        <input type="number" id="length" name="length" min="0">
+
+        <label for="goldenPalmCount">Golden Palm Count:</label>
+        <input type="number" id="goldenPalmCount" name="goldenPalmCount" min="0">
+
+        <label for="tagline">Tagline:</label>
+        <input type="text" id="tagline" name="tagline" required>
+
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre" required></select>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<!-- Table with Movies and Controls -->
+<div class="table-container">
+    <h3>Current Movies</h3>
+
+    <form id="filter-form">
+        <label for="filter-column">Filter (column name)</label>
+        <input type="text" id="filter-column" required>
+
+        <label for="filter-value">Filter (value)</label>
+        <input type="text" id="filter-value" required>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <table id="movies-table">
+        <thead>
+        <tr>
+            <th class="click-tag" data-sort="id">ID</th>
+            <th class="click-tag" data-sort="name">Name</th>
+            <th>Coordinates</th>
+            <th class="click-tag" data-sort="oscarsCount">Oscars</th>
+            <th class="click-tag" data-sort="budget">Budget</th>
+            <th class="click-tag" data-sort="totalBoxOffice">Box Office</th>
+            <th>Mpaa Rating</th>
+            <th>Director</th>
+            <th>Screenwriter</th>
+            <th>Operator</th>
+            <th class="click-tag" data-sort="length">Length</th>
+            <th class="click-tag" data-sort="goldenPalmCount">Golden Palm Count</th>
+            <th class="click-tag" data-sort="tagline">Tagline</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="pagination">
+        <button id="prev-page" onclick="changePage(-1)">Previous</button>
+        <span id="current-page">1</span>
+        <button id="next-page" onclick="changePage(1)">Next</button>
+    </div>
+</div>
+
+<script type="module" src="../js/movies.js"></script>
+</body>
+</html>

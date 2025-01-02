@@ -12,12 +12,17 @@
     <class>ru.shchetinin.lab1p.entity.Person</class>
     <class>ru.shchetinin.lab1p.entity.Location</class>
     <class>ru.shchetinin.lab1p.entity.User</class>
+    <class>ru.shchetinin.lab1p.entity.Application</class>
 
     <properties>
+<!--      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>-->
+<!--      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/studs"/>-->
+<!--      <property name="jakarta.persistence.jdbc.user" value="s367658"/>-->
+<!--      <property name="jakarta.persistence.jdbc.password" value="NGsxlYXVjGzE589M"/>-->
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/is"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/is"/>
       <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-      <property name="jakarta.persistence.jdbc.password" value="09082001"/>
+      <property name="jakarta.persistence.jdbc.password" value="123"/>
 <!--      <property name="eclipselink.ddl-generation" value="drop-tables"/>-->
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.logging.level.sql" value="FINE"/>

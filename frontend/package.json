@@ -1,0 +1,18 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "src/js/index.js",
+  "scripts": {
+    "start": "node src/js/index.js",
+    "dev": "nodemon src/js/index.js"
+  },
+  "author": "Stas Shchetinin <stas.shc@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "keywords": [],
+  "description": ""
+}

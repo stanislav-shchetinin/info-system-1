@@ -10,12 +10,9 @@ import lombok.Setter;
 @MappedSuperclass
 public class SubjectAreaEntity extends  RootEntity {
     @Column(
-            name = "creator",
-            nullable = false,
+            name = "creator_id",
+            nullable = true,
             updatable = false
     )
-    private Long creator;
-
-    
-
+    protected Long creator;
 }

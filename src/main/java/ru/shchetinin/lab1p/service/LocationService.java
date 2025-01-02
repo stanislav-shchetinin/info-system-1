@@ -2,6 +2,7 @@ package ru.shchetinin.lab1p.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;

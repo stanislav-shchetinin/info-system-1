@@ -38,3 +38,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+C:\\Libs\\wildfly-27.0.1.Final\\standalone\\log\\server.log

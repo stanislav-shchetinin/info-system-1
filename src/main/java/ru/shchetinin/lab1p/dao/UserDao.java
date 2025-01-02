@@ -4,9 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
-import ru.shchetinin.lab1p.entity.Location;
-import ru.shchetinin.lab1p.entity.Person;
-import ru.shchetinin.lab1p.entity.User;
+import jakarta.transaction.Transactional;
+import ru.shchetinin.lab1p.entity.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,4 +40,18 @@ public class UserDao extends BasedDao<User>{
     public boolean isUserExist(String username) {
         return findByUsername(username).isPresent();
     }
+
+    @Transactional
+    public void setAdminRole(Long userId) {
+        User u = findById(userId).get();
+        u.setRole(Role.ADMIN);
+        update(u);
+    }
+
+    public List<User> findAdmins() {
+        return em.createQuery("FROM User u WHERE u.role = :role", User.class)
+                .setParameter("role", Role.ADMIN)
+                .getResultList();
+    }
 }
+

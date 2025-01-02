@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class Movie extends SubjectAreaEntity {
             nullable = false,
             referencedColumnName = "id"
     )
+    @CascadeOnDelete
     private Coordinates coordinates;
 
     @Column(name = "creation_date", nullable = false, updatable = false)
@@ -58,15 +60,18 @@ public class Movie extends SubjectAreaEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director_id", referencedColumnName = "id")
+    @CascadeOnDelete
     private Person director;
 
     @NotNull(message = "Screenwriter cannot be null")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "screenwriter_id", referencedColumnName = "id")
+    @CascadeOnDelete
     private Person screenwriter;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "operator_id", referencedColumnName = "id")
+    @CascadeOnDelete
     private Person operator;
 
     @Min(value = 1, message = "Length must be greater than 0")

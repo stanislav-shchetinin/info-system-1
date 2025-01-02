@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import ru.shchetinin.lab1p.dto.request.LocationRequest;
 import ru.shchetinin.lab1p.entity.Location;
+import ru.shchetinin.lab1p.security.JWT;
 import ru.shchetinin.lab1p.service.LocationService;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class LocationController {
     private LocationService locationService;
 
     @POST
+    @JWT
     public Response createLocation(@Valid LocationRequest location) {
         var createdLocation = locationService.createLocation(location);
         return Response.status(Response.Status.CREATED).entity(createdLocation).build();
@@ -29,6 +31,7 @@ public class LocationController {
 
     @GET
     @Path("/{id}")
+    @JWT
     public Response getLocationById(@PathParam("id") Long id) {
         var location = locationService.getLocationById(id);
         return Response.ok(location).build();
@@ -36,6 +39,7 @@ public class LocationController {
 
     @GET
     @Path("/all")
+    @JWT
     public Response getAllLocations(@QueryParam("page") int page,
                                     @QueryParam("size") int size) {
         List<Location> locations = locationService.getAllLocations(page, size);
@@ -44,6 +48,7 @@ public class LocationController {
 
     @PUT
     @Path("/{id}")
+    @JWT
     public Response updateLocation(@PathParam("id") Long id, @Valid LocationRequest updatedLocation) {
         Location location = locationService.updateLocation(id, updatedLocation);
         return Response.ok(location).build();
@@ -51,6 +56,7 @@ public class LocationController {
 
     @DELETE
     @Path("/{id}")
+    @JWT
     public Response deleteLocation(@PathParam("id") Long id) {
         locationService.deleteLocation(id);
         return Response.noContent().build();

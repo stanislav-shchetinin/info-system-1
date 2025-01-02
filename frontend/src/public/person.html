@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/table.css">
+    <title>Person Management</title>
+</head>
+<body>
+<h3>Person Management</h3>
+
+<div id="user-principals">
+
+</div>
+
+<table id="person-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Eye Color</th>
+        <th>Hair Color</th>
+        <th>Location</th>
+        <th>Birthday</th>
+        <th>Nationality</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<h4>Add New Person</h4>
+<form id="add-person-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="eyeColor">Eye Color:</label>
+    <select id="eyeColor" name="eyeColor" required></select>
+
+    <label for="hairColor">Hair Color:</label>
+    <select id="hairColor" name="hairColor" required></select>
+
+    <label for="location">Location:</label>
+    <select id="location" name="location" required></select>
+
+    <label for="birthday">Birthday:</label>
+    <input type="date" id="birthday" name="birthday" required>
+
+    <label for="nationality">Nationality:</label>
+    <select id="nationality" name="nationality" required></select>
+
+    <button type="submit">Submit</button>
+</form>
+<button type="submit" id="home-button">Home</button>
+
+<script type="module" src="../js/person.js"></script>
+</body>
+</html>

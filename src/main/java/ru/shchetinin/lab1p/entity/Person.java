@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class Person extends SubjectAreaEntity {
             name = "location_id",
             referencedColumnName = "id"
     )
+    @CascadeOnDelete
     private Location location;
 
     @OneToMany(mappedBy = "director")

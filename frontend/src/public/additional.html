@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Additional Management</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/table.css">
+</head>
+<body>
+<h3>Additional Management</h3>
+
+<!-- Секция для отображения режиссеров без "Оскаров" -->
+<div id="directors-without-oscars">
+    <p>Directors without Oscars:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<!-- Среднее значение goldenPalmCount -->
+<div id="average-golden-palm">
+    <span id="average-value"></span>
+</div>
+
+<!-- Секция для отображения количества элементов по имени -->
+<div id="group-by-name">
+    <p>Count elements by name:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<!-- Форма для подсчета фильмов по жанру -->
+<form id="count-by-genre-form">
+    <label for="genre-input">Genre:</label>
+    <input type="text" id="genre-input" required />
+    <button type="submit">Count Movies by Genre</button>
+</form>
+<div id="count-by-genre-output">
+    <p>Movies count:</p>
+    <span id="genre-count-value"></span>
+</div>
+
+<!-- Форма для перераспределения "Оскаров" -->
+<form id="redistribute-oscars-form">
+    <label for="from-genre">From Genre:</label>
+    <input type="text" id="from-genre" required />
+    <label for="to-genre">To Genre:</label>
+    <input type="text" id="to-genre" required />
+    <button type="submit">Redistribute Oscars</button>
+</form>
+
+<!-- Кнопка для возврата на домашнюю страницу -->
+<button type="button" id="home-button">Home</button>
+
+<script type="module" src="../js/additional.js"></script>
+</body>
+</html>

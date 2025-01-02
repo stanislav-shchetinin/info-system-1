@@ -6,6 +6,9 @@ import jakarta.servlet.annotation.WebListener;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -20,7 +23,12 @@ public class DDLInitializer implements ServletContextListener {
             DataSource ds = (DataSource) new InitialContext().lookup("java:jboss/datasources/postgres");
             try (Connection conn = ds.getConnection();
                  Statement stmt = conn.createStatement()) {
-                stmt.execute(new String(Files.readAllBytes(Paths.get("C:\\ЛабораторныеРаботы\\ИС\\lab1p\\src\\main\\java\\ru\\shchetinin\\lab1p\\config\\scripts\\ddl.sql"))));
+                try (InputStream is = getClass().getClassLoader().getResourceAsStream("scripts/ddl.sql")) {
+                    if (is == null) {
+                        throw new FileNotFoundException("Resource 'scripts/ddl.sql' not found");
+                    }
+                    stmt.execute(new String(is.readAllBytes(), StandardCharsets.UTF_8));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

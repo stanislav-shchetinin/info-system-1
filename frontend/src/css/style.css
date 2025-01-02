@@ -1,0 +1,276 @@
+/*** FONTS ***/
+/*@import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+/*** VARIABLES ***/
+/* Colors */
+/*** EXTEND ***/
+/* box-shadow */
+ol.gradient-list > li, ol.gradient-list > li::before {
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+}
+/*** STYLE ***/
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #fafafa;
+    color: #1d1f20;
+    font-family: 'Montserrat', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main {
+    margin: 0 auto;
+    max-width: 40rem;
+    padding: 1rem;
+    min-width: 80%;
+}
+ol.gradient-list {
+    counter-reset: gradient-counter;
+    list-style: none;
+    margin: 1.75rem 0;
+    padding-left: 1rem;
+}
+ol.gradient-list > li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+}
+ol.gradient-list > li::before, ol.gradient-list > li::after {
+    background: linear-gradient(135deg, #FFD6E0FF 0%, #FC768EFF 100%);
+    border-radius: 1rem 1rem 0 1rem;
+    content: '';
+    height: 3rem;
+    left: -1rem;
+    overflow: hidden;
+    position: absolute;
+    top: -1rem;
+    width: 3rem;
+}
+ol.gradient-list > li::before {
+    align-items: flex-end;
+    content: counter(gradient-counter);
+    color: #1d1f20;
+    display: flex;
+    font: 900 1.5em/1 'Montserrat';
+    justify-content: flex-end;
+    padding: 0.125em 0.25em;
+    z-index: 1;
+}
+ol.gradient-list > li:nth-child(10n + 1):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.2) 0%, rgba(248, 28, 64, 0.2) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 2):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.4) 0%, rgba(248, 28, 64, 0.4) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 3):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.6) 0%, rgba(248, 28, 64, 0.6) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 4):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.8) 0%, rgba(248, 28, 64, 0.8) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 5):before {
+    background: linear-gradient(135deg, #fc768e 0%, #f81c40 100%);
+}
+ol.gradient-list > li:nth-child(10n + 6):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.8) 0%, rgba(248, 28, 64, 0.8) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 7):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.6) 0%, rgba(248, 28, 64, 0.6) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 8):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.4) 0%, rgba(248, 28, 64, 0.4) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 9):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0.2) 0%, rgba(248, 28, 64, 0.2) 100%);
+}
+ol.gradient-list > li:nth-child(10n + 10):before {
+    background: linear-gradient(135deg, rgba(252, 118, 142, 0) 0%, rgba(248, 28, 64, 0) 100%);
+}
+ol.gradient-list > li + li {
+    margin-top: 2rem;
+}
+
+.button {
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+}
+.button-shadow {
+    border: 2px solid #FF416C;
+    background-color: #ff2556;
+    border-radius: 20px;
+    color: #fff;
+    transition: 0.3s;
+}
+.button-shadow:hover {
+    box-shadow: 8px 8px #fc768e;
+    transition: 0.3s;
+}
+
+.btn-back {
+    padding: 0;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn-new-group {
+    width: 150px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+
+}
+
+.input-number-classes {
+    max-width: 200px;
+    min-width: 100px;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.btn-number-classes {
+    padding: 0;
+    height: 30px;
+
+}
+
+:root {
+    --vs-primary: 29 92 255;
+}
+/*Dialog Styles*/
+dialog {
+    padding: 1rem 3rem;
+    background: white;
+    max-width: 400px;
+    padding-top: 2rem;
+    border-radius: 20px;
+    border: 0;
+    box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease both;
+}
+dialog::backdrop {
+    animation: fadeIn 1s ease both;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+    backdrop-filter: blur(20px);
+}
+dialog .x {
+    filter: grayscale(1);
+    border: none;
+    background: none;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    transition: ease filter, transform 0.3s;
+    cursor: pointer;
+    transform-origin: center;
+}
+dialog .x:hover {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+dialog h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+dialog p {
+    font-size: 1rem;
+    line-height: 1.3rem;
+    padding: 0.5rem 0;
+}
+dialog p a:visited {
+    color: rgb(var(--vs-primary));
+}
+
+button.primary {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #fff !important;
+    background: rgb(var(--vs-primary) / 100%);
+    padding: 13px 25px;
+    border-radius: 17px;
+    transition: background-color 0.1s ease;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 10px 20px -10px rgb(var(--vs-primary) / 50%);
+}
+button.primary:hover {
+    box-shadow: 0 20px 20px -10px rgb(var(--vs-primary) / 50%);
+    transform: translateY(-5px);
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.btn-crete {
+    margin-top: 5px;
+}
+
+.btn-delete {
+    margin-top: 50px;
+}
+
+.btns-groups {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container{
+    width: 80%;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+

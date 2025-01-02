@@ -6,12 +6,16 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
 import ru.shchetinin.lab1p.dao.PersonDao;
+import ru.shchetinin.lab1p.dao.UserDao;
 import ru.shchetinin.lab1p.dto.request.PersonRequest;
 import ru.shchetinin.lab1p.entity.Location;
 import ru.shchetinin.lab1p.entity.Person;
+import ru.shchetinin.lab1p.entity.Role;
 import ru.shchetinin.lab1p.excepion.EndpointException;
+import ru.shchetinin.lab1p.security.SecurityManager;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -21,17 +25,25 @@ public class PersonService {
     private PersonDao personDao;
 
     @Inject
+    private UserDao userDao;
+
+    @Inject
     private ModelMapper modelMapper;
 
     @Inject
     private LocationService locationService;
 
+    @Inject
+    private SecurityManager securityManager;
+
 
     @Transactional
-    public Person createPerson(PersonRequest personRequest) {
+    public Person createPerson(PersonRequest personRequest, String username) {
         Person person = modelMapper.map(personRequest, Person.class);
 
         setDependencies(personRequest, person);
+        var opt = userDao.findByUsername(username);
+        opt.ifPresent(user -> person.setCreator(user.getId()));
 
         personDao.save(person);
 
@@ -51,7 +63,20 @@ public class PersonService {
     }
 
     @Transactional
-    public Person updatePerson(Long id, PersonRequest personRequest) {
+    public Person updatePerson(Long id, PersonRequest personRequest, String username) {
+
+        var opt = userDao.findByUsername(username);
+        boolean isAuth = false;
+
+        if (opt.isPresent()) {
+            var creator = personDao.findById(id).get().getCreator();
+            isAuth = Objects.equals(creator, opt.get().getId()) || opt.get().getRole().equals(Role.ADMIN);
+        }
+
+        if (!isAuth) {
+            throw new EndpointException(Response.Status.FORBIDDEN, String.format("Person with id %d is not creator", id));
+        }
+
         Optional<Person> personOptional = personDao.findById(id);
         if (personOptional.isEmpty()) {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Person with id %d not found", id));
@@ -67,7 +92,19 @@ public class PersonService {
     }
 
     @Transactional
-    public void deletePerson(Long id) {
+    public void deletePerson(Long id, String username) {
+        var opt = userDao.findByUsername(username);
+        boolean isAuth = false;
+
+        if (opt.isPresent()) {
+            var creator = personDao.findById(id).get().getCreator();
+            isAuth = Objects.equals(creator, opt.get().getId()) || opt.get().getRole().equals(Role.ADMIN);
+        }
+
+        if (!isAuth) {
+            throw new EndpointException(Response.Status.FORBIDDEN, String.format("Person with id %d is not creator", id));
+        }
+
         if (!personDao.delete(id)) {
             throw new EndpointException(Response.Status.NOT_FOUND, String.format("Person with id %d not found", id));
         }
