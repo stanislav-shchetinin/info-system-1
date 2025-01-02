@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 import ru.shchetinin.lab1p.dao.MovieDao;
 import ru.shchetinin.lab1p.dto.request.MovieRequest;
 import ru.shchetinin.lab1p.entity.Movie;
@@ -26,10 +27,14 @@ public class MovieController {
     @Inject
     private MovieDao movieDao;
 
+    @Inject
+    private SecurityContext securityContext;
+
     @POST
     @JWT
     public Response createMovie(@Valid MovieRequest movie) {
-        Movie createdMovie = movieService.createMovie(movie);
+        String username = securityContext.getUserPrincipal().getName();
+        Movie createdMovie = movieService.createMovie(movie, username);
         return Response.status(Response.Status.CREATED).entity(createdMovie).build();
     }
 
@@ -59,7 +64,8 @@ public class MovieController {
     @Path("/{id}")
     @JWT
     public Response updateMovie(@PathParam("id") Long id, @Valid MovieRequest updatedMovie) {
-        Movie movie = movieService.updateMovie(id, updatedMovie);
+        String username = securityContext.getUserPrincipal().getName();
+        Movie movie = movieService.updateMovie(id, updatedMovie, username);
         return Response.ok(movie).build();
     }
 
@@ -67,7 +73,8 @@ public class MovieController {
     @Path("/{id}")
     @JWT
     public Response deleteMovie(@PathParam("id") Long id) {
-        movieService.deleteMovie(id);
+        String username = securityContext.getUserPrincipal().getName();
+        movieService.deleteMovie(id, username);
         return Response.noContent().build();
     }
 
